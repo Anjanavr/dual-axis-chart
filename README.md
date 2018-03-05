@@ -1,2 +1,2 @@
 # dual-axis-chart
-A chart with dual axis using Angular and Chart.js
+A dual axis chart using Angular and Chart.js
