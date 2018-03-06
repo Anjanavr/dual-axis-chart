@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class Constants {
+export class AppConstants {
     static tokenDelimeter = ',';
     static isHeaderPresentFlag = true;
     static validateHeaderAndRecordLengthFlag = true;

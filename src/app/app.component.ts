@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { Constants } from './shared/constants';
+import { AppConstants } from './shared/constants';
 import { FileService } from './shared/util';
 
 @Component({
@@ -8,7 +8,7 @@ import { FileService } from './shared/util';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
     providers: [
-        Constants,
+        AppConstants,
         FileService
     ]
 })
@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
         const text = [];
         const files = $event.srcElement.files;
 
-        if (Constants.validateHeaderAndRecordLengthFlag) {
+        if (AppConstants.validateHeaderAndRecordLengthFlag) {
             if (!this._fileUtil.isCSVFile(files[0])) {
                 alert('Please import valid .csv file.');
                 this.fileReset();
@@ -48,13 +48,12 @@ export class AppComponent implements OnInit {
             const csvRecordsArray = csvData.split(/\r\n|\n/);
 
             let headerLength = -1;
-            if (Constants.isHeaderPresentFlag) {
-                const headersRow = this._fileUtil.getHeaderArray(csvRecordsArray, Constants.tokenDelimeter);
+            if (AppConstants.isHeaderPresentFlag) {
+                const headersRow = this._fileUtil.getHeaderArray(csvRecordsArray, AppConstants.tokenDelimeter);
                 headerLength = headersRow.length;
             }
             this.csvRecords = this._fileUtil.getDataRecordsArrayFromCSVFile(csvRecordsArray,
-                headerLength, Constants.validateHeaderAndRecordLengthFlag, Constants.tokenDelimeter);
-                console.log(this.csvRecords);
+                headerLength, AppConstants.validateHeaderAndRecordLengthFlag, AppConstants.tokenDelimeter);
             if (this.csvRecords == null) {
                 // If control reached here it means csv file contains error, reset file.
                 this.fileReset();
