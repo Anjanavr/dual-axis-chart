@@ -3,6 +3,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppConstants } from './shared/constants';
 import { FileService } from './shared/util';
 
+// import { ChartComponent } from './chart/chart.component';
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
