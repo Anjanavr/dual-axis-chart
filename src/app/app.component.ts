@@ -1,7 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 
 import { AppConstants } from './shared/constants';
 import { FileService } from './shared/util';
+
+import { ChartComponent } from './chart/chart.component';
 
 @Component({
     selector: 'app-root',
@@ -12,19 +14,22 @@ import { FileService } from './shared/util';
         FileService
     ]
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements AfterViewInit {
     title = 'app';
 
     @ViewChild('fileImportInput')
-    fileImportInput: any;
 
+    fileImportInput: any;
+    @ViewChild(ChartComponent) chartComponent: ChartComponent;
     csvRecords = [];
+    chartConfig: any;
 
     constructor(
         private _fileUtil: FileService
     ) { }
 
-    ngOnInit() { }
+    ngAfterViewInit() {
+    }
 
     // METHOD CALLED WHEN CSV FILE IS IMPORTED
     fileChangeListener($event): void {
@@ -57,6 +62,8 @@ export class AppComponent implements OnInit {
             if (this.csvRecords == null) {
                 // If control reached here it means csv file contains error, reset file.
                 this.fileReset();
+            } else {
+                this.createChart();
             }
         };
 
@@ -68,5 +75,17 @@ export class AppComponent implements OnInit {
     fileReset() {
         this.fileImportInput.nativeElement.value = '';
         this.csvRecords = [];
+    }
+
+    createChart() {
+        this.chartConfig = {
+            labels: {
+                'X': 'Date',
+                'Y': ['Temperature(°C)', 'Humidity(%)']
+            },
+            data: this.csvRecords
+        };
+        this.chartComponent.chartConfig = this.chartConfig;
+        this.chartComponent.drawChart();
     }
 }

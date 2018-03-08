@@ -36,7 +36,7 @@ export class FileService {
     getDataRecordsArrayFromCSVFile(csvRecordsArray, headerLength,
         validateHeaderAndRecordLengthFlag, tokenDelimeter) {
         const dataArr = [];
-
+        const headers = csvRecordsArray[0].split(tokenDelimeter);
         for (let i = 1; i < csvRecordsArray.length - 1; i++) {
             const data = csvRecordsArray[i].split(tokenDelimeter);
             if (validateHeaderAndRecordLengthFlag && data.length !== headerLength) {
@@ -50,11 +50,11 @@ export class FileService {
                 }
             }
 
-            const col = [];
+            const temp = {};
             for (let j = 0; j < data.length; j++) {
-                col.push(data[j]);
+                temp[headers[j]] = data[j];
             }
-            dataArr.push(col);
+            dataArr.push(temp);
         }
         return dataArr;
     }

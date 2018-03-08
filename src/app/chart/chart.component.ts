@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import Chart from 'chart.js';
 
@@ -12,51 +12,59 @@ export class ChartComponent implements OnInit {
 
     chart: any;
 
+    @Input() chartConfig: any;
+
     constructor() { }
 
     ngOnInit() {
-        this.drawChart();
+        // this.drawChart();
     }
 
     drawChart () {
+        this.configChartOptions();
         const canvas = document.getElementById('chart');
         this.chart = new Chart(canvas, {
-        type: 'bar',
-        data: {
-            labels: ['1', '2', '3', '4', '5'],
-            datasets: [{
-            label: 'A',
-            yAxisID: 'A',
-            data: [100, 96, 84, 76, 69]
-            }, {
-            label: 'B',
-            yAxisID: 'B',
-            data: [2, 6, 4, 5, 0],
-            type: 'line'
-            }, {
-                label: 'C',
+            type: 'bar',
+            data: {
+                labels: ['1', '2', '3', '4', '5'],
+                datasets: [{
+                label: 'A',
                 yAxisID: 'A',
-                data: [45, 96, 74, 85, 20]
-            }]
-        },
-        options: {
-            scales: {
-            yAxes: [{
-                id: 'A',
-                type: 'linear',
-                position: 'left',
-            }, {
-                id: 'B',
-                type: 'linear',
-                position: 'right',
-                ticks: {
-                max: 10,
-                min: 0
+                data: [100, 96, 84, 76, 69]
+                }, {
+                label: 'B',
+                yAxisID: 'B',
+                data: [2, 6, 4, 5, 0],
+                type: 'line'
+                }, {
+                    label: 'C',
+                    yAxisID: 'A',
+                    data: [45, 96, 74, 85, 20]
+                }]
+            },
+            options: {
+                scales: {
+                yAxes: [{
+                    id: 'A',
+                    type: 'linear',
+                    position: 'left',
+                }, {
+                    id: 'B',
+                    type: 'linear',
+                    position: 'right',
+                    ticks: {
+                    max: 10,
+                    min: 0
+                    }
+                }]
                 }
-            }]
             }
-        }
         });
+    }
+    configChartOptions () {
+        this.chartConfig = {
+            type: 'bar'
+        };
     }
 
 }
