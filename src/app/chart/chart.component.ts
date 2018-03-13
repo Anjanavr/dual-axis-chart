@@ -11,52 +11,56 @@ declare var Chart: any;
 export class ChartComponent implements OnInit {
 
     chart: any;
+    chartConfig: any;
 
     constructor() { }
 
     ngOnInit() {
-        this.drawChart();
     }
 
-    drawChart () {
-        const canvas = document.getElementById('chart');
-        this.chart = new Chart(canvas, {
-        type: 'bar',
-        data: {
-            labels: ['1', '2', '3', '4', '5'],
-            datasets: [{
-            label: 'A',
-            yAxisID: 'A',
-            data: [100, 96, 84, 76, 69]
-            }, {
-            label: 'B',
-            yAxisID: 'B',
-            data: [2, 6, 4, 5, 0],
-            type: 'line'
-            }, {
-                label: 'C',
-                yAxisID: 'A',
-                data: [45, 96, 74, 85, 20]
-            }]
-        },
-        options: {
-            scales: {
-            yAxes: [{
-                id: 'A',
-                type: 'linear',
-                position: 'left',
-            }, {
-                id: 'B',
-                type: 'linear',
-                position: 'right',
-                ticks: {
-                max: 10,
-                min: 0
-                }
-            }]
-            }
+    drawChart (chartConfig) {
+        if (!chartConfig) {
+            chartConfig = this.configChartOptions();
         }
-        });
+        const canvas = document.getElementById('chart');
+        this.chart = new Chart(canvas, chartConfig);
+    }
+    configChartOptions () {
+        this.chartConfig = {
+            type: 'bar',
+            data: {
+                labels: [0, 1, 2, 3, 4, 5],
+                dataSets: [{
+                        label: 'Actual Temp',
+                        yAxisID: 'Temperature',
+                        data: [23, 22, 22, 21, 21, 21]
+                    }, {
+                        label: 'Forecast Temp',
+                        yAxisID: 'Temperature',
+                        data: [25.15, 24.43, 24.1, 23.82, 23.63, 23.47]
+                    }, {
+                        label: 'Humidity',
+                        yAxisID: 'Humidity',
+                        data: [8, 6, 8, 8, 5, 10],
+                        type: 'line'
+                    }
+                ],
+                options: {
+                    scales: {
+                        yAxes: [{
+                            id: 'Temperature',
+                            type: 'linear',
+                            position: 'left',
+                        }, {
+                            id: 'Humidity',
+                            type: 'linear',
+                            position: 'right',
+                        }]
+                    }
+                }
+            }
+        };
+        return this.chartConfig;
     }
 
 }

@@ -36,25 +36,25 @@ export class FileService {
     getDataRecordsArrayFromCSVFile(csvRecordsArray, headerLength,
         validateHeaderAndRecordLengthFlag, tokenDelimeter) {
         const dataArr = [];
-
+        const csvHeadersArray = csvRecordsArray[0].split(tokenDelimeter);
         for (let i = 1; i < csvRecordsArray.length - 1; i++) {
             const data = csvRecordsArray[i].split(tokenDelimeter);
             if (validateHeaderAndRecordLengthFlag && data.length !== headerLength) {
                 if (data === '') {
-                    console.log('Extra blank line is present at line number ' + i + ', please remove it.');
+                    alert('Extra blank line is present at line number ' + i + ', please remove it.');
                     return null;
                 } else {
-                    console.log('Record at line number ' + i + ' contain '
+                    alert('Record at line number ' + i + ' contain '
                     + data.length + ' tokens, and is not matching with header length of :' + headerLength);
                     return null;
                 }
             }
 
-            const col = [];
+            const obj = {};
             for (let j = 0; j < data.length; j++) {
-                col.push(data[j]);
+                obj[csvHeadersArray[j]] = data[j];
             }
-            dataArr.push(col);
+            dataArr.push(obj);
         }
         return dataArr;
     }
