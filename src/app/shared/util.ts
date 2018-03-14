@@ -50,11 +50,11 @@ export class FileService {
                 }
             }
 
-            const obj = {};
+            const temp = {};
             for (let j = 0; j < data.length; j++) {
-                obj[csvHeadersArray[j]] = data[j];
+                temp[csvHeadersArray[j]] = data[j];
             }
-            dataArr.push(obj);
+            dataArr.push(temp);
         }
         return dataArr;
     }
