@@ -55,6 +55,7 @@ export class CsvUploadComponent implements OnInit {
                 // If control reached here it means csv file contains error, reset file.
                 this.fileReset();
             } else {
+                this._fileUtil.findAverageOfEachDay(this.csvRecords);
                 this.uploadCompleted.emit(this.csvRecords);
             }
         };

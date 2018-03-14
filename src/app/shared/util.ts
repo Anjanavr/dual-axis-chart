@@ -59,4 +59,25 @@ export class FileService {
         }
         return dataArr;
     }
+
+    findAverageOfEachDay(records) {
+        const temp1 = records.map(item => {
+            item['Date'] = moment(item['Date']).utc().format('MM-DD-YYYY');
+            return item;
+        });
+        const datesArr = temp1.forEach((element, index) => {
+            if (!datesArr) {
+                datesArr.push({'Date': element['Date']});
+            } else {
+                if (!datesArr.includes(element['Date'])) {
+                    datesArr.push(element['Date']);
+                }
+            }
+            if (index === temp1.length - 1) {
+                console.log(element);
+            }
+        });
+
+        console.log(datesArr);
+    }
 }
