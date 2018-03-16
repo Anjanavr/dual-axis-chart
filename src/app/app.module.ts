@@ -5,6 +5,8 @@ import { AppComponent } from './app.component';
 import { ChartComponent } from './chart/chart.component';
 import { CsvUploadComponent } from './csv-upload/csv-upload.component';
 
+import { FileService } from './shared/util';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -15,7 +17,9 @@ import { CsvUploadComponent } from './csv-upload/csv-upload.component';
         BrowserModule,
         FormsModule
     ],
-    providers: [],
+    providers: [
+        FileService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

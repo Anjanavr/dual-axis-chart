@@ -60,8 +60,11 @@ export class FileService {
         return dataArr;
     }
 
+    // format date to the format we want to show, currently MM-DD-YY
+    // Find the average of temperature and humidity on each day
     findAverageOfEachDay(records) {
-        let datesArr = [], tempArr = [];
+        let tempArr = [];
+        const datesArr = [];
         const temp1 = records.map(item => {
             item['Date'] = moment(item['Date']).utc().format('MM-DD-YYYY');
             if (!datesArr.length) {
@@ -92,7 +95,7 @@ export class FileService {
             return item;
         });
         tempArr = datesArr.map(obj => {
-            let temp = {
+            const temp = {
                 'Date': obj['Date'],
                 'Actual Temperature(°C)': 0,
                 'Forecast Temperature(°C)': 0,
@@ -115,5 +118,6 @@ export class FileService {
             obj['Humidity(%)'] = obj['Humidity(%)'] / datesArr[index]['Humidity(%)'].length;
             return obj;
         });
+        return tempArr;
     }
 }

@@ -10,9 +10,6 @@ const valildateFileExtenstionFlag = true;
   selector: 'app-csv-upload',
   templateUrl: './csv-upload.component.html',
   styleUrls: ['./csv-upload.component.css'],
-  providers: [
-    FileService
-  ]
 })
 export class CsvUploadComponent implements OnInit {
     csvRecords = [];

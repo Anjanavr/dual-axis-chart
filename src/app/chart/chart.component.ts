@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import { FileService } from '../shared/util';
 import Chart from 'chart.js';
 
 declare var Chart: any;
@@ -13,12 +13,13 @@ export class ChartComponent implements OnInit {
     chart: any;
     chartConfig: any;
 
-    constructor() { }
+    constructor(private utilService: FileService) { }
 
     ngOnInit() {
     }
 
     drawChart (data) {
+        data = this.utilService.findAverageOfEachDay(data);
         if (!data) {
             this.chartConfig = this.configChartOptions();
         } else {
