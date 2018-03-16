@@ -12,7 +12,6 @@ export class AppComponent implements AfterViewInit {
 
     @ViewChild(ChartComponent) chartComponent: ChartComponent;
     csvRecords = [];
-    chartConfig: any;
 
     constructor(
     ) { }
@@ -26,14 +25,6 @@ export class AppComponent implements AfterViewInit {
     }
 
     createChart() {
-        this.chartConfig = {
-            labels: {
-                'X': 'Date',
-                'Y': ['Temperature(°C)', 'Humidity(%)']
-            },
-            data: this.csvRecords
-        };
-        this.chartComponent.chartConfig = this.chartConfig;
-        this.chartComponent.drawChart();
+        this.chartComponent.drawChart(this.csvRecords);
     }
 }
